@@ -1,0 +1,50 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="mx-4 my-3">
+    <div class="p-2" id="game-console-wrapper">
+
+        <div class="container">
+            <div class="nes-container is-dark with-title">
+                <p class="title">{{ category }}</p>
+                
+                <div class="row align-items-center" style="min-height: 200px;">
+                    <div class="col text-center">
+                        <p>PLAYER</p>
+                        <i class="nes-icon heart is-medium"></i>
+                        <i class="nes-icon heart is-medium"></i>
+                        <i class="nes-icon is-half heart is-medium"></i>
+                    </div>
+    
+                    <div class="col text-center d-flex flex-column align-items-center">
+                        <img src="{% static 'assets/images/wolf_idle.gif' %}" class="pixel-art" style="width: 150px;">
+                        <progress class="nes-progress is-success" value="80" max="100" id="healthbar"></progress>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="text-center my-4">
+                <h2 class="nes-text is-primary text-center" style="font-size: 1.2rem">{{ masked_word }}</h2>
+            </div>
+    
+            <div class="nes-container is-rounded">
+                <div class="row justify-content-center">
+                    <h4>Choose a letter:</h4>
+                    <div class="d-flex justify-content-center flex-wrap gap-2">
+                        {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+                            <button type="button"
+                                    x-data="{guessed: false, status: ''}"
+                                    class="nes-btn"
+                                    :class="status"
+                                    :disabled="guessed"
+                                    @click="guessed = true; status = 'is-success is-disabled';">
+                                    {{ letter }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,19 @@
+/* .background-img {
+    background-image: url('../assets/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+} */
+
+#game-console-wrapper {
+    padding: 20px;
+    border: 10px solid #adb5bd;
+    border-radius: 40px;
+}
+
+#healthbar {
+    width: 60%;
+    margin: 0 auto;
+    transform: scaleY(0.7);
+}
