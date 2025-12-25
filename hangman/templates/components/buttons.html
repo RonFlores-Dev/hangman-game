@@ -1,0 +1,27 @@
+{% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+    {% if letter in game_session.guessed_letters %}
+        <button id="btn-{{ letter }}"
+                type="button"
+                class="nes-btn {% if letter in game_session.word.word.upper %}is-success{% else %}is-error{% endif %} is-disabled"
+                disabled>
+            {{ letter }}
+        </button>
+    {% else %}
+        <button id="btn-{{ letter }}"
+                type="button"
+                class="nes-btn"
+                
+                hx-post="{% url 'guess_letter' game_session.id %}"
+                hx-vals='{"last_guess": "{{ letter }}"}'
+                hx-target="#masked-word-display"
+                hx-swap="outerHTML"
+
+                {% comment %} x-data="{ guessed: false, status: '' }"
+                :class="status"
+                :disabled="guessed"
+                @click="guessed = true; status = 'is-disabled';" {% endcomment %}
+                >
+            {{ letter }}
+        </button>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,10 @@
+<div class="text-center my-4" id="masked-word-display">
+    <h2 class="nes-text is-primary text-center" style="font-size: 1.2rem; letter-spacing: 4px">{{ object.masked_word }}</h2>
+</div>
+
+<button id="btn-{{ guessed_letter }}" 
+        class="nes-btn {{ status }} is-disabled" 
+        disabled 
+        hx-swap-oob="true">
+    {{ guessed_letter }}
+</button>

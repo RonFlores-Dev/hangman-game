@@ -14,11 +14,17 @@
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <script src="{% static 'js/sprite.js' %}"></script>
 </head>
 <body class="background-img"
       style="font-family: 'Press Start 2P', cursive;"
-      hx-headers="{'X-CSRFToken': '{{ csrf_token }}'}">
+      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     {% block content %}
     {% endblock %}
+    <script>
+        document.body.addEventListener('htmx:afterOnLoad', function(evt) {
+            console.log("Swapped content into:", evt.detail.target.id);
+        });
+    </script>
 </body>
 </html>

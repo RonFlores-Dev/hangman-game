@@ -23,15 +23,18 @@ class Word(models.Model):
     
 class GameSession(models.Model):
     choices = [
+        ('START', 'Start'),
         ('VICTORY', 'Victory'),
         ('DEFEAT', 'Defeat'),
+        ('CORRECT', 'Correct'),
+        ('INCORRECT', 'Incorrect'),
     ]
 
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
     masked_word = models.CharField(max_length=100)
-    guessed_letters = models.CharField(max_length=26)
+    guessed_letters = models.CharField(max_length=26, default='', blank=True)
     lives = models.IntegerField()
-    result = models.CharField(max_length=10, choices=choices)
+    result = models.CharField(max_length=10, choices=choices, default='START')
 
     def __str__(self):
         return f"Game Session for {self.word}"

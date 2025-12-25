@@ -1,0 +1,53 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="mx-4 my-3">
+    <div id="audio-pool" style="display: none;">
+        <audio id="snd-correct" src="{% static 'assets/audio/correct_guess.wav' %}" preload="auto"></audio>
+        <audio id="snd-incorrect" src="{% static 'assets/audio/incorrect_guess.mp3' %}" preload="auto"></audio>
+        <audio id="snd-hit" src="{% static 'assets/audio/hit.wav' %}" preload="auto"></audio>
+        <audio id="snd-death" src="{% static 'assets/audio/die.wav' %}" preload="auto"></audio>
+        <audio id="snd-victory" src="{% static 'assets/audio/victory_jingle.mp3' %}" preload="auto"></audio>
+        <audio id="snd-defeat" src="{% static 'assets/audio/defeat_jingle.mp3' %}" preload="auto"></audio>
+    </div>
+    <div class="p-2" id="game-console-wrapper">
+
+        <div class="container">
+            <div class="nes-container is-dark with-title">
+                <p class="title">{{ game_session.word.category }}</p>
+                
+                <div class="row align-items-center" style="min-height: 200px;">
+                    <div class="col text-center">
+                        <p>PLAYER</p>
+                        <i class="nes-icon heart is-medium"></i>
+                        <i class="nes-icon heart is-medium"></i>
+                        <i class="nes-icon is-half heart is-medium"></i>
+                    </div>
+    
+                    <div class="col text-center d-flex flex-column align-items-center"
+                         x-data ="spriteController('{% static 'assets/images/wolf_idle.gif' %}', '{% static 'assets/images/' %}')"
+                         @game-state-changed.window="playAnimation($event.detail.action)">
+                        <img :src="sprite" class="pixel-art" style="width: 150px;">
+                        <progress class="nes-progress is-success" value="80" max="100" id="healthbar"></progress>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="text-center my-4" id="masked-word-display">
+                <h2 class="nes-text is-primary text-center" style="font-size: 1.2rem; letter-spacing: 4px">{{ game_session.masked_word }}</h2>
+            </div>
+    
+            <div class="nes-container is-rounded">
+                <div class="row justify-content-center">
+                    <h4>Choose a letter:</h4>
+                    <div class="d-flex justify-content-center flex-wrap gap-2">
+                        {% include "components/buttons.html" %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+{% endblock %}

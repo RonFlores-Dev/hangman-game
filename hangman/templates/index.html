@@ -2,7 +2,19 @@
 {% load static %}
 
 {% block content %}
-<main class="mx-4 my-3">
+<main class="mx-4 my-3"
+      x-data ="{
+        sprite: 'wolf_idle.gif',
+        playAnim(action) {
+            if action === 'CORRECT' {
+                this.sprite = 'wolf_hurt.gif';
+            } else if action === 'INCORRECT' {
+                this.sprite = 'wolf_atk.gif';
+            } else if action === 'VICTORY' {
+                    this.sprite = 'wolf_death.gif';
+            }
+        }
+      }">
     <div class="p-2" id="game-console-wrapper">
 
         <div class="container">
@@ -17,7 +29,8 @@
                         <i class="nes-icon is-half heart is-medium"></i>
                     </div>
     
-                    <div class="col text-center d-flex flex-column align-items-center">
+                    <div class="col text-center d-flex flex-column align-items-center"
+                         @game-state-changed.window="playAnim($event.detail.action)">
                         <img src="{% static 'assets/images/wolf_idle.gif' %}" class="pixel-art" style="width: 150px;">
                         <progress class="nes-progress is-success" value="80" max="100" id="healthbar"></progress>
                     </div>
@@ -33,17 +46,20 @@
                     <h4>Choose a letter:</h4>
                     <div class="d-flex justify-content-center flex-wrap gap-2">
                         {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
-                            <button type="button"
+                            <button id="btn-{{ letter }}"
+                                    type="button"
+
                                     x-data="{guessed: false, status: ''}"
                                     class="nes-btn"
                                     :class="status"
                                     :disabled="guessed"
-                                    @click="guessed = true; status = 'is-success is-disabled';">
+                                    @click="guessed = true; status = 'is-disabled';">
                                     {{ letter }}</button>
                         {% endfor %}
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </main>
