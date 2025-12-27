@@ -1,0 +1,8 @@
+<div id="heart-counter" class="col text-center" hx-swap-oob="true" >
+    <p>PLAYER</p>
+    <div class="{% if status == 'is-error' %}animate-shake{% endif %}">
+        {% for i in lives_range %}
+            <i class="nes-icon heart is-medium"></i>
+        {% endfor %}
+    </div>
+</div>

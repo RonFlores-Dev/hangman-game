@@ -5,6 +5,15 @@ class Command(BaseCommand):
     help = 'Populates the database with words per categories'
 
     def handle(self, *args, **options):
+        self.stdout.write('Cleaning the database...')
+
+        Word.objects.all().delete()
+        Category.objects.all().delete()
+
+        self.stdout.write('Database cleaned.')
+        self.stdout.write('Populating the database...')
+
+        # Data to be inserted, you may also add your own dataset but be sure to follow the same format
         data = {
             'Animals': [
                 ('Shark', 'EASY'),
@@ -81,6 +90,25 @@ class Command(BaseCommand):
                 ('How to Train Your Dragon', 'HARD'),
                 ('The Shawshank Redemption', 'HARD'),
                 ('The SpongeBob Movie: Sponge Out of Water', 'HARD'),
+            ],
+            "Vtubers": [
+                ('Gawr Gura', 'EASY'),
+                ('Gigi Murin', 'EASY'),
+                ('Dokibird', 'EASY'),
+                ('Mint Fantome', 'EASY'),
+                ('Tokino Sora', 'EASY'),
+
+                ('Cecilia Immergreen', 'MEDIUM'),
+                ('Aki Rosenthal', 'MEDIUM'),
+                ('Hoshimachi Suisei', 'MEDIUM'),
+                ('Matara Kan', 'MEDIUM'),
+                ('Pipkin Pippa', 'MEDIUM'),
+
+                ('Nerissa Ravencroft', 'HARD'),
+                ('SmugAlana', 'HARD'),
+                ('Rosiebellmoo', 'HARD'),
+                ('SquChan', 'HARD'),
+                ('Juufuutei Raden', 'HARD'),
             ]
         }
 

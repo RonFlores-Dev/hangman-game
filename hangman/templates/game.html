@@ -11,18 +11,18 @@
         <audio id="snd-victory" src="{% static 'assets/audio/victory_jingle.mp3' %}" preload="auto"></audio>
         <audio id="snd-defeat" src="{% static 'assets/audio/defeat_jingle.mp3' %}" preload="auto"></audio>
     </div>
-    <div class="p-2" id="game-console-wrapper">
+    <div class="p-2" id="game-console-wrapper" style="background-color: white;">
 
         <div class="container">
             <div class="nes-container is-dark with-title">
                 <p class="title">{{ game_session.word.category }}</p>
                 
                 <div class="row align-items-center" style="min-height: 200px;">
-                    <div class="col text-center">
+                    <div class="col text-center" id="heart-counter">
                         <p>PLAYER</p>
-                        <i class="nes-icon heart is-medium"></i>
-                        <i class="nes-icon heart is-medium"></i>
-                        <i class="nes-icon is-half heart is-medium"></i>
+                        {% for i in "1234567"|slice:game_session.lives %}
+                            <i class="nes-icon heart is-medium"></i>
+                        {% endfor %}
                     </div>
     
                     <div class="col text-center d-flex flex-column align-items-center"
@@ -49,5 +49,6 @@
 
         </div>
     </div>
+    {% include "components/modal.html" %}
 </main>
 {% endblock %}

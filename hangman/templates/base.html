@@ -17,7 +17,12 @@
     <script src="{% static 'js/sprite.js' %}"></script>
 </head>
 <body class="background-img"
-      style="font-family: 'Press Start 2P', cursive;"
+      style="font-family: 'Press Start 2P', cursive;
+             background-image: url('/static/assets/images/background.jpg');
+             background-size: cover;
+             background-position: center;
+             background-repeat: no-repeat;
+             background-attachment: fixed;"
       hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     {% block content %}
     {% endblock %}

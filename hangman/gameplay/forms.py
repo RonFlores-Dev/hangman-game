@@ -1,9 +1,15 @@
 from django import forms
-from .models import GameSession
+from .models import GameSession, Category
 
 class GameSessionForm(forms.ModelForm):
-    category = forms.CharField(max_length=50)
-    difficulty = forms.CharField(max_length=10)
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.RadioSelect(attrs={'class': 'nes-radio'})
+    )
+    difficulty = forms.ChoiceField(
+        choices=[('EASY', 'Easy'), ('MEDIUM', 'Medium'), ('HARD', 'Hard')],
+        widget=forms.RadioSelect(attrs={'class': 'nes-radio'})
+    )
 
     class Meta:
         model = GameSession

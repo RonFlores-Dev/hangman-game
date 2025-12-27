@@ -1,0 +1,37 @@
+<div 
+    x-data="{ open: false, result: '', word: '' }" 
+    @game-over.window="setTimeout(() => open = true, 3500); result = $event.detail.result; word = $event.detail.word"
+    x-show="open"
+    x-cloak
+    style="display: none;" 
+    :style="open ? 'display: flex !important;' : 'display: none !important;'"
+>
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9998;"></div>
+
+    <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; width: 90%; max-width: 450px;">
+        
+        <div x-show="open"
+             class="nes-container is-rounded with-title" 
+             :class="result === 'VICTORY' ? 'is-success' : 'is-error'"
+             style="background-color: white !important;">
+            
+            <p class="title" x-text="result === 'VICTORY' ? 'VICTORY!' : 'DEFEAT'"></p>
+
+            <div class="text-center p-3">
+                <div x-show="result === 'VICTORY'">
+                    <i class="nes-icon trophy is-medium"></i>
+                    <p class="nes-text is-success">You defeated the enemy!</p>
+                </div>
+                <div x-show="result === 'DEFEAT'">
+                    <p class="nes-text is-error">The enemy has defeated you!</p>
+                    <p>The word was: <br>
+                       <span class="nes-text is-primary" x-text="word"></span>
+                    </p>
+                </div>
+                <div class="mt-4">
+                    <a href="/" class="nes-btn is-primary">NEW GAME</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

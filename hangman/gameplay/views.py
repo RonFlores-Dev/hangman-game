@@ -1,4 +1,6 @@
 from json import dumps
+from random import choice
+from django.shortcuts import redirect
 from django.views.generic import TemplateView, DetailView, CreateView, UpdateView
 from .models import Word, GameSession
 from .forms import GuessForm, GameSessionForm
@@ -27,11 +29,48 @@ class GameSessionDetailView(DetailView):
     template_name = 'game.html'
     
 class CreateGameSessionView(CreateView):
-    model = GameSession
+    template_name = 'index.html'
     form_class = GameSessionForm
+    model = GameSession
 
     def form_valid(self, form):
-        return super().form_valid(form)
+        category = form.cleaned_data['category']
+        difficulty = form.cleaned_data['difficulty']
+
+        word_pool = Word.objects.filter(category=category, difficulty=difficulty)
+
+        if not word_pool.exists():
+            form.add_error(None, 'No words found for this selecton')
+            return self.form_invalid(form)
+        
+        chosen_word = choice(word_pool)
+
+        masked_word = ""
+
+        for c in chosen_word.word:
+            if not c.isalpha():
+                masked_word += c
+            else:
+                masked_word += '_'
+
+        difficulty_lives = {
+            'EASY': 7,
+            'MEDIUM': 5,
+            'HARD': 3
+        }
+
+        lives = difficulty_lives.get(difficulty, 5)
+
+        session = GameSession.objects.create(
+            word=chosen_word,
+            masked_word=masked_word,
+            lives=lives,
+            result='START'
+        )
+
+        session.save()
+
+        return redirect('game', pk=session.id)
     
 class UpdateGameSessionView(UpdateView):
     model = GameSession
@@ -81,6 +120,8 @@ class UpdateGameSessionView(UpdateView):
             context = self.get_context_data(
                 object=session,
                 guessed_letter=letter,
+                is_correct=is_correct,
+                lives_range=range(session.lives),
                 status='is-success' if is_correct else 'is-error'
             )
             
@@ -89,15 +130,19 @@ class UpdateGameSessionView(UpdateView):
             response = self.render_to_response(context)
             trigger_data = { 
                 "game-state-changed": {
-                    "action": result
+                    "action": result,
                 }
             }
+
+            if result == 'VICTORY' or result == 'DEFEAT':
+                trigger_data['game-over'] = {
+                    'result': result,
+                    'word': target_word
+                }
 
             response['HX-Trigger'] = dumps(trigger_data)
 
             return response
-        
-        # return super().form_valid(form)
         
     def form_invalid(self, form):
         if self.request.headers.get('HX-Request'):

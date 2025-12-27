@@ -2,64 +2,54 @@
 {% load static %}
 
 {% block content %}
-<main class="mx-4 my-3"
-      x-data ="{
-        sprite: 'wolf_idle.gif',
-        playAnim(action) {
-            if action === 'CORRECT' {
-                this.sprite = 'wolf_hurt.gif';
-            } else if action === 'INCORRECT' {
-                this.sprite = 'wolf_atk.gif';
-            } else if action === 'VICTORY' {
-                    this.sprite = 'wolf_death.gif';
-            }
-        }
-      }">
-    <div class="p-2" id="game-console-wrapper">
-
-        <div class="container">
-            <div class="nes-container is-dark with-title">
-                <p class="title">{{ category }}</p>
-                
-                <div class="row align-items-center" style="min-height: 200px;">
-                    <div class="col text-center">
-                        <p>PLAYER</p>
-                        <i class="nes-icon heart is-medium"></i>
-                        <i class="nes-icon heart is-medium"></i>
-                        <i class="nes-icon is-half heart is-medium"></i>
-                    </div>
-    
-                    <div class="col text-center d-flex flex-column align-items-center"
-                         @game-state-changed.window="playAnim($event.detail.action)">
-                        <img src="{% static 'assets/images/wolf_idle.gif' %}" class="pixel-art" style="width: 150px;">
-                        <progress class="nes-progress is-success" value="80" max="100" id="healthbar"></progress>
-                    </div>
-                </div>
+<main class="container my-5">
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8 col-lg-6">
+            <div class="nes-container with-title" style="background-color: white;">
+                <p class="title">Hangman</p>
+                <p>Welcome to Hangman! Guess the word/s to defeat the enemy before you run out of lives.</p>
+                <p>Choose your category and difficulty, and hit play to begin!</p>
             </div>
-    
-            <div class="text-center my-4">
-                <h2 class="nes-text is-primary text-center" style="font-size: 1.2rem">{{ masked_word }}</h2>
-            </div>
-    
-            <div class="nes-container is-rounded">
-                <div class="row justify-content-center">
-                    <h4>Choose a letter:</h4>
-                    <div class="d-flex justify-content-center flex-wrap gap-2">
-                        {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
-                            <button id="btn-{{ letter }}"
-                                    type="button"
+        </div>
+    </div>
 
-                                    x-data="{guessed: false, status: ''}"
-                                    class="nes-btn"
-                                    :class="status"
-                                    :disabled="guessed"
-                                    @click="guessed = true; status = 'is-disabled';">
-                                    {{ letter }}</button>
-                        {% endfor %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-6">
+            <div class="nes-container with-title" style="background-color: white;">
+                <p class="title">Start Game</p>
+                <form action="{% url 'create_game' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <p class="nes-text mb-2">Choose a category:</p>
+                        <div class="d-flex flex-column gap-2">
+                            {% for value, label in form.category.field.choices %}
+                                {% if value %}
+                                <label>
+                                    <input type="radio" class="nes-radio" name="category" value="{{ value }}" {% if forloop.first %}checked{% endif %} />
+                                    <span>{{ label }}</span>
+                                </label>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-            </div>
 
+                    <div class="mb-4">
+                        <p class="nes-text mb-2">Choose a difficulty:</p>
+                        <div class="d-flex flex-wrap gap-3">
+                            {% for value, label in form.difficulty.field.choices %}
+                                <label>
+                                    <input type="radio" class="nes-radio" name="difficulty" value="{{ value }}" {% if forloop.first %}checked{% endif %} />
+                                    <span>{{ label }}</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <button type="submit" class="nes-btn is-primary" :click="isLoading = true">Play</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </main>
