@@ -29,7 +29,7 @@
                          x-data ="spriteController('{% static 'assets/images/wolf_idle.gif' %}', '{% static 'assets/images/' %}')"
                          @game-state-changed.window="playAnimation($event.detail.action)">
                         <img :src="sprite" class="pixel-art" style="width: 150px;">
-                        <progress class="nes-progress is-success" value="80" max="100" id="healthbar"></progress>
+                        {% comment %} <progress class="nes-progress is-success" value="80" max="100" id="healthbar"></progress> {% endcomment %}
                     </div>
                 </div>
             </div>
