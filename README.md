@@ -4,7 +4,7 @@ A simple Hangman web application with an RPG twist. This project is an improved 
 
 <p align="center">
   <video 
-    src="./assets/demo.mp4" 
+    src="/assets/demo.mp4" 
     controls
     autoplay
     muted
