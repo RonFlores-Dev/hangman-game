@@ -2,16 +2,7 @@
 
 A simple Hangman web application with an RPG twist. This project is an improved version of the first project I created without help from tutorials.
 
-<p align="center">
-  <video 
-    src="/assets/demo.mp4" 
-    controls
-    autoplay
-    muted
-    loop
-    style="max-width: 100%;">
-  </video>
-</p>
+![](assets/demo.mp4)
 
 ### Tech Stack
 
