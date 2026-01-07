@@ -2,8 +2,6 @@
 
 A simple Hangman web application with an RPG twist. This project is an improved version of the first project I created without help from tutorials.
 
-![](https://github.com/user-attachments/assets/47f3c707-798c-4bc9-b2aa-e6ee226ffe5a)
-
 ### Tech Stack
 
 - Framework: Django 6.0
