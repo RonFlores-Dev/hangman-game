@@ -1,6 +1,6 @@
 # Hangman RPG
 
-A simple Hangman web application with an RPG twist. This project is an improved version of the first project I created without help from tutorials.
+A simple Hangman web application with an RPG twist. This project is an improved version of the first project I created without help from tutorials. A demo video can be found ![here](https://github.com/RonFlores-Dev/hangman-game/issues/1).
 
 ### Tech Stack
 
