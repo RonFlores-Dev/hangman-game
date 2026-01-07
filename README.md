@@ -2,7 +2,7 @@
 
 A simple Hangman web application with an RPG twist. This project is an improved version of the first project I created without help from tutorials.
 
-![](assets/demo.mp4)
+![](./assets/demo.mp4)
 
 ### Tech Stack
 
