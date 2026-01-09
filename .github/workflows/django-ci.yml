@@ -38,4 +38,6 @@ jobs:
           DB_USER: postgres
           DB_PASSWORD: postgres
           SECRET_KEY: "temporary-key-for-testing"
-        run: python manage.py test
+        run: |
+          cd hangman
+          python manage.py test
