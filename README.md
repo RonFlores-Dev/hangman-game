@@ -6,7 +6,7 @@ A simple Hangman web application with an RPG twist. This project is an improved 
 
 - Framework: Django 6.0
 - Frontend: Alpine.js, HTMX, Bootstrap, and NES.css
-- Database: SQLite (Local/Dev)
+- Database: SQLite (Local/Dev), PostgreSQL (Production)
 
 The project includes a custom management command called `setup_words` to clear and seed the word and category database with the data provided. You may also add your own words and categories, provided that you follow the format.
 
@@ -46,9 +46,12 @@ pip install -r requirements.txt
 
 - Copy the template: cp .env.example .env (or manually copy the contents).
 
-- The default values in .env.example are pre-configured for local development, so no changes are strictly necessary to start.
+- **!!! IMPORTANT !!!** Database Selection
+  - **Quick Start (SQLite)**: Set `USE_POSTGRES=False` in your .env. No further configuration is needed.
 
-5. **Initialize the database**: go to the main Django project folder and run the migrations and use the custom management command to seed the word bank.
+  - **Production-Ready (Postgres)**: Set `USE_POSTGRES=True` and fill in your DB_NAME, DB_USER, and DB_PASSWORD variables.
+
+5. **Initialize the database**: go to the main Django project folder and run the migrations and use the custom management command to seed the word bank and categories.
 
 ```
 cd hangman
