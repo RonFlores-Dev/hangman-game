@@ -1,6 +1,16 @@
 # Hangman RPG
 
-A simple Hangman web application with an RPG twist. This project is an improved version of the first project I created without help from tutorials. A demo video can be found ![here](https://github.com/RonFlores-Dev/hangman-game/issues/1).
+A simple Hangman web application with an RPG twist. This project is an improved version of the first project I created without help from tutorials. A demo video can be found below, but if it is somehow not working, it can also be found ![here](https://github.com/RonFlores-Dev/hangman-game/issues/1).
+
+<video width="640" height="480" controls>
+  <source src="assets/demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+### Project Screenshots
+
+![Main page](assets/screenshot-1.png)
+![Game session](assets/screenshot-2.png)
 
 ### Tech Stack
 
